@@ -1,26 +1,5 @@
 from django.contrib import admin
-from .models import Book, BookGenre, BookTag, Reel, Post
-from .models.book import BookComment
-
-
-@admin.register(BookGenre)
-class BookGenreAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    search_fields = ('name',)
-
-
-@admin.register(BookTag)
-class BookTagAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name')
-    search_fields = ('name',)
-
-
-@admin.register(Book)
-class BookAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'user', 'created_at')
-    search_fields = ('title', 'user__email')
-    list_filter = ('created_at',)
-    filter_horizontal = ('genre', 'tags')
+from .models import Reel, Post
 
 
 @admin.register(Reel)
@@ -47,11 +26,3 @@ class PostAdmin(admin.ModelAdmin):
         return f"📷 Image ID {obj.id}" if obj.image else "No image"
 
     image_preview.short_description = "Image"
-
-
-@admin.register(BookComment)
-class BookCommentAdmin(admin.ModelAdmin):
-    list_display = ['user', 'book', 'created_at', 'text', 'parent']
-    search_fields = ['user__username', 'book__title', 'text']
-    list_filter = ['book', 'parent']  # Фильтрация по родительскому комментарию
-    list_display_links = ['user', 'book']  # Указываем кликабельные поля
