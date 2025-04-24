@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
-from app.content.models import Post
+from .models import Post
 
 
 @login_required
