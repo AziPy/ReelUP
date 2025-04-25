@@ -4,6 +4,21 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import AllowAny
+# app/users/views.py
+
+from rest_framework import viewsets, permissions
+from .models import User
+from .serializers import UserSerializer, UserCreateSerializer
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_serializer_class(self):
+        if self.action == 'create':
+            return UserCreateSerializer
+        return UserSerializer
+
 
 
 class LoginView(APIView):
