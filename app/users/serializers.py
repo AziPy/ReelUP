@@ -1,26 +1,24 @@
-# app/users/serializers.py
-
 from rest_framework import serializers
-from app.users.models import User
+from .models import User, Profile
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'email', 'username', 'is_active', 'date_joined']
-        read_only_fields = ['id', 'is_active', 'date_joined']
+        fields = ('id', 'username', 'email')
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
         model = User
-        fields = ['email', 'username', 'password']
+        fields = ('id', 'username', 'email', 'password')
 
     def create(self, validated_data):
         user = User.objects.create_user(
-            email=validated_data['email'],
             username=validated_data['username'],
-            password=validated_data['password']
+            email=validated_data['email'],
+            password=validated_data['password'],
         )
         return user
 
@@ -28,4 +26,15 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['username']
+        fields = ('username', 'email')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    followers_count = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'bio', 'image', 'followers_count')
+
+    def get_followers_count(self, obj):
+        return obj.followers.count()
