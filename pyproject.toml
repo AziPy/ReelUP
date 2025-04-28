@@ -3,7 +3,6 @@ name = "eho"
 version = "0.1.0"
 description = ""
 authors = ["aziret"]
-readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -28,6 +27,7 @@ ruamel-yaml = "^0.18.10"
 ruamel-yaml-clib = "^0.2.12"
 gunicorn = "^23.0.0"
 djangorestframework-simplejwt = "^5.5.0"
+dj-database-url = "^2.3.0"
 
 
 [build-system]

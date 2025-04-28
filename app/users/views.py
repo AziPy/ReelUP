@@ -12,7 +12,6 @@ from .serializers import (
     UserUpdateSerializer,
     ProfileSerializer,
 )
-
 # --- Работа с пользователями (регистрация, обновление, просмотр, подписка) ---
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
