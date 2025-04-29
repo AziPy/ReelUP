@@ -1,12 +1,21 @@
-from pathlib import Path
 from datetime import timedelta
-from decouple import config, Csv
+
+
+from pathlib import Path
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+SECRET_KEY = 'django-insecure-g56qefvrrgnx_ygpsz-#!ao71tv@!fjk49mukq68@lh#p*6%t+'
+
+DEBUG = True
+
+ALLOWED_HOSTS = []
+
+
+
+
 
 INSTALLED_APPS = [
     'jazzmin',
@@ -59,23 +68,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Database config using .env
+
 DATABASES = {
     'default': {
-        'ENGINE': config('DB_ENGINE', default='django.db.backends.sqlite3'),
-        'NAME': BASE_DIR / config('DB_NAME', default='db.sqlite3') if config('DB_ENGINE') == 'django.db.backends.sqlite3' else config('DB_NAME'),
-        'USER': config('DB_USER', default=''),
-        'PASSWORD': config('DB_PASSWORD', default=''),
-        'HOST': config('DB_HOST', default=''),
-        'PORT': config('DB_PORT', default=''),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
+
 AUTH_PASSWORD_VALIDATORS = [
-    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 REST_FRAMEWORK = {
@@ -88,10 +102,13 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+
 LANGUAGE_CODE = 'ru-ru'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+
+
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
@@ -99,10 +116,34 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', cast=Csv())
-CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', cast=Csv())
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5174",
+]
+
+CORS_ALLOW_METHODS = (
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+)
+
+CORS_ALLOW_HEADERS = (
+    "accept",
+    "authorization",
+    "content-type",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+)
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5174/",
+]
 
 # Custom User model
 AUTH_USER_MODEL = 'users.User'
